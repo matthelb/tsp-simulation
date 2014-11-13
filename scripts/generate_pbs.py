@@ -34,7 +34,7 @@ print('#PBS -l walltime={0}'.format(walltime), file=f)
 for i in range(processors):
 	trial_start = int(i * real_trials)
 	trial_end = int(min((i + 1) * real_trials, trials))
-	print('pbsdsh {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}'.format(run_script, cairomm_path, exec_dir, results_dir, 1, min_coord, max_coord, trial_start, trial_end, input_file, i, 0, maxchunksize), file=f)
+	print('pbsdsh -n {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} &'.format(i, run_script, cairomm_path, exec_dir, results_dir, 1, min_coord, max_coord, trial_start, trial_end, input_file, i, 0, maxchunksize), file=f)
 f.close()
 
 # for i in range(processors + 1):
