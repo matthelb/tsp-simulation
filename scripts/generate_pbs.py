@@ -31,7 +31,8 @@ f = open('{0}/job{1}.pbs'.format(output_dir, num_cities), 'w+')
 print('#!/bin/bash', file=f)
 print('#PBS -l nodes={0}:ppn={1}'.format(max(1, nodes), min(PROCESSORS_PER_NODE, processors)), file=f)
 print('#PBS -l walltime={0}'.format(walltime), file=f)
-print('pbsdsh -v {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11}'.format(run_script, cairomm_path, exec_dir, results_dir, 1, min_coord, max_coord, trials, real_trials, input_file, 0, maxchunksize), file=f)
+for i in range(1, nodes + 1):
+	print('pbsdsh -v -n {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}'.format(i, run_script, cairomm_path, exec_dir, results_dir, 1, min_coord, max_coord, trials, real_trials, input_file, 0, maxchunksize), file=f)
 f.close()
 
 # for i in range(processors + 1):
