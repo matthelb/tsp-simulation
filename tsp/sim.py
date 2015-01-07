@@ -33,3 +33,16 @@ def generate_simulation(num_cities, min_coord, max_coord, trials, directory):
 		f = open(os.path.join(d, '{0}_ab.tsp'.format(num_cities)), 'w+')
 		t_i.write(f)
 		f.close()
+
+PROCESSORS_PER_NODE = 8
+
+def generate_pbs(tsp_file, processors, walltime, concorde_script, maxchunksize=16):
+	f = open('{0}.pbs'.format(os.path.splitext(os.path.basename(tsp_file))[0]), 'w+')
+	nodes = int(math.ceil(processors / PROCESSORS_PER_NODE))
+	print('#!/bin/bash', file=f)
+	print('#PBS -l nodes={0}:ppn={1}'.format(max(1, nodes), min(PROCESSORS_PER_NODE, processors)), file=f)
+	print('#PBS -l walltime={0}'.format(walltime), file=f)
+	if processors == 1:
+		print('pbsdsh -v {0} 0 {1}'.format(concorde_script, maxchunksize), file=f)
+	else:
+		print('pbsdsh -v -n 1 {0} 1 {1}'.format(concorde_script, maxchunksize), file=f)
