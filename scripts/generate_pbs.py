@@ -39,8 +39,9 @@ f = open('{0}/{1}.pbs'.format(pbs_output_dir, out_file), 'w+')
 print('#!/bin/bash', file=f)
 print('#PBS -l nodes={0}:ppn={1}'.format(max(1, nodes), min(PROCESSORS_PER_NODE, processors)), file=f)
 print('#PBS -l walltime={0}'.format(walltime), file=f)
+print('source /usr/usc/openmpi/1.8.1/gnu/setup.sh')
 for i in range(trial_groups):
 	node = int(i * processors_per_trial / PROCESSORS_PER_NODE)
 	trials_start = i * trials_per_group
 	trials_end = (i + 1) * trials_per_group
-	print('pbsdsh -v -n {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} {14} {15} {16}'.format(node, run_script, cairomm_path, exec_file, output_dir, iterations, min_coord, max_coord, trials_start, trials_end, input_file, max_compute_time, max_chunk_size, processors_per_trial, concorde_exec, mpi_wrapper_exec), file=f)
+	print('mpiexec -np 1 {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} {14} {15} {16}'.format(node, run_script, cairomm_path, exec_file, output_dir, iterations, min_coord, max_coord, trials_start, trials_end, input_file, max_compute_time, max_chunk_size, processors_per_trial, concorde_exec, mpi_wrapper_exec), file=f)

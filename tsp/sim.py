@@ -45,4 +45,4 @@ def generate_pbs(tsp_file, processors, walltime, concorde_script, maxchunksize=1
 	if processors == 1:
 		print('pbsdsh -v {0} 0 {1}'.format(concorde_script, maxchunksize), file=f)
 	else:
-		print('pbsdsh -v -n 1 {0} 1 {1}'.format(concorde_script, maxchunksize), file=f)
+		print('mpiexec -np 1 {0} 1 {1}'.format(concorde_script, maxchunksize), file=f)
