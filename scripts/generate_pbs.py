@@ -4,8 +4,8 @@ import math
 import sys
 import os
 
-if len(sys.argv) != 19:
-	print('Usage: {0} <run_script> <cairomm_path> <exec_file> <output_dir> <iterations> <min_coord> <max_coord> <trials> <input_file> <max_compute_time> <max_chunk_size> <processors> <processors_per_trial> <walltime> <pbs_output_dir> <concorde_exec> <mpi_wrapper_exec> <run_id_offset>'
+if len(sys.argv) != 18:
+	print('Usage: {0} <run_script> <cairomm_path> <exec_file> <output_dir> <iterations> <min_coord> <max_coord> <trials> <input_file> <max_compute_time> <max_chunk_size> <processors> <processors_per_trial> <walltime> <pbs_output_dir> <concorde_exec> <mpi_wrapper_exec>'
 				.format(sys.argv[0]), file=sys.stderr)
 	sys.exit(1)
 
@@ -43,4 +43,4 @@ for i in range(trial_groups):
 	node = int(i * processors_per_trial / PROCESSORS_PER_NODE)
 	trials_start = i * trials_per_group
 	trials_end = (i + 1) * trials_per_group
-	print('pbsdsh -v -n {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} {14} {15} {16}'.format(node, run_script, cairomm_path, exec_file, output_dir, iterations, min_coord, max_coord, trials_start, trials_end, input_file, max_compute_time, max_chunk_size, processors_per_trial, concorde_exec, mpi_wrapper_exec, i), file=f)
+	print('pbsdsh -v -n {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} {14} {15} {16}'.format(node, run_script, cairomm_path, exec_file, output_dir, iterations, min_coord, max_coord, trials_start, trials_end, input_file, max_compute_time, max_chunk_size, processors_per_trial, concorde_exec, mpi_wrapper_exec), file=f)
