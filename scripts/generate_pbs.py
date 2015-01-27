@@ -28,7 +28,6 @@ walltime = sys.argv[14]
 pbs_output_dir = sys.argv[15]
 concorde_exec = sys.argv[16]
 mpi_wrapper_exec = sys.argv[17]
-run_id_offset = int(sys.argv[18])
 
 nodes = int(math.ceil(processors / PROCESSORS_PER_NODE))
 trial_groups = processors / processors_per_trial
@@ -44,4 +43,4 @@ for i in range(trial_groups):
 	node = int(i * processors_per_trial / PROCESSORS_PER_NODE)
 	trials_start = i * trials_per_group
 	trials_end = (i + 1) * trials_per_group
-	print('pbsdsh -v -n {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} {14} {15} {16}'.format(node, run_script, cairomm_path, exec_file, output_dir, iterations, min_coord, max_coord, trials_start, trials_end, input_file, max_compute_time, max_chunk_size, processors_per_trial, concorde_exec, mpi_wrapper_exec, run_id_offset), file=f)
+	print('pbsdsh -v -n {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} {14} {15} {16}'.format(node, run_script, cairomm_path, exec_file, output_dir, iterations, min_coord, max_coord, trials_start, trials_end, input_file, max_compute_time, max_chunk_size, processors_per_trial, concorde_exec, mpi_wrapper_exec, i), file=f)
